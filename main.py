@@ -6,6 +6,7 @@ import sys
 from dotenv import load_dotenv
 
 load_dotenv()
+DISCORD_API = os.getenv("DISCORD_API")
 DISCORD_KEY = os.getenv("DISCORD_KEY")
 
 
@@ -15,7 +16,7 @@ import yt_dlp as youtube_dl
 intens = discord.Intents().all()
 client = discord.Client(intents=intens)
 
-bot = commands.Bot(command_prefix="!", intents=intens)
+bot = commands.Bot(command_prefix=DISCORD_KEY, intents=intens)
 
 youtube_dl.utils.bug_reports_message = lambda: ""
 
@@ -90,11 +91,10 @@ async def p(ctx):
             await channel.connect()
         except:
             await ctx.send("Ya estoy en un canal de voz")
-            return
 
     print("ctx", ctx.message.content)
-    print("ctx limpio", ctx.message.content.replace("!p ", ""))
-    search = ctx.message.content.replace("!p ", "")
+    print("ctx limpio", ctx.message.content.replace(DISCORD_KEY+"p ", ""))
+    search = ctx.message.content.replace(DISCORD_KEY+"p ", "")
     server = ctx.message.guild
     voice_channel = server.voice_client
     async with ctx.typing():
@@ -161,8 +161,8 @@ async def clear(ctx):
 @bot.command("helpme")
 async def helpme(ctx):
     await ctx.send(
-        "Comandos disponibles: \n !j - Unirse a un canal de voz \n !p - Reproducir una cancion \n !pause - Pausar la cancion \n !resume - Resumir la cancion \n !stop - Detener la cancion \n !leave - Salir del canal de voz \n !clear - Limpiar archivos temporales"
+        f"Comandos disponibles: \n {DISCORD_KEY}j - Unirse a un canal de voz \n {DISCORD_KEY}p - Reproducir una cancion \n {DISCORD_KEY}pause - Pausar la cancion \n {DISCORD_KEY}resume - Resumir la cancion \n {DISCORD_KEY}stop - Detener la cancion \n {DISCORD_KEY}leave - Salir del canal de voz \n {DISCORD_KEY}clear - Limpiar archivos temporales"
     )
 
 
-bot.run(DISCORD_KEY)
+bot.run(DISCORD_API)
