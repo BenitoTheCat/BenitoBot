@@ -6,13 +6,12 @@ import sys
 from dotenv import load_dotenv
 import time
 
+# import youtube_dl
+import yt_dlp as youtube_dl
+
 load_dotenv()
 DISCORD_API = os.getenv("DISCORD_API")
 DISCORD_KEY = os.getenv("DISCORD_KEY")
-
-
-# import youtube_dl
-import yt_dlp as youtube_dl
 
 intens = discord.Intents().all()
 client = discord.Client(intents=intens)
@@ -64,6 +63,11 @@ class YTDLSource(discord.PCMVolumeTransformer):
         video = {}
         video["title"] = data["title"]
         video["filename"] = filename
+        video["url"] = data["webpage_url"]
+        video["thumbnail"] = data["thumbnail"]
+
+        print("url: ", video["url"])
+        print("thumbnail: ", video["thumbnail"])
 
         return video
 
@@ -180,7 +184,15 @@ async def playing(ctx):
                 ctx
             ): asyncio.run_coroutine_threadsafe(check_queue, bot.loop).result(),
         )
-        await ctx.send(f"**Ahora tocandote:** {filename['title']}")
+        embed = discord.Embed(
+            title=filename["title"],
+            description=filename["url"],
+            color=discord.Color.pink(),
+        )
+        embed.set_thumbnail(url=filename["thumbnail"])
+        embed.set_author(name="**Ahora tocandote 🎧:**")
+        await ctx.send(embed=embed)
+        # await ctx.send(f"**Ahora tocandote:** {filename['title']}")
     except:
         pass
 
