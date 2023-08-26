@@ -36,4 +36,4 @@ tomli==2.0.1
 websockets==11.0.3
 yarl==1.9.2
 youtube-dl==2021.12.17
-yt-dlp @ https://github.com/yt-dlp/yt-dlp/archive/master.tar.gz#sha256=8b5c0faca656bb8c2354d14dfd073aa188f64ec05224fdebd9a43ff78627266a
+yt-dlp==2023.7.6

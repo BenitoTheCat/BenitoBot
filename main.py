@@ -21,7 +21,7 @@ bot = commands.Bot(command_prefix=DISCORD_KEY, intents=intens)
 youtube_dl.utils.bug_reports_message = lambda: ""
 
 ytdl_format_options = {
-    "format": "bestaudio/best",
+    "format": "m4a/bestaudio/best",
     "restrictfilenames": True,
     "noplaylist": True,
     "nocheckcertificate": True,
@@ -168,6 +168,17 @@ async def clear(ctx):
         await ctx.send("Archivos temporales eliminados")
     except:
         await ctx.send("No se pudo eliminar los archivos temporales")
+        return
+
+
+# command restart that restart pm2 bot
+@bot.command("restart")
+async def restart(ctx):
+    await ctx.send("Reiniciando bot")
+    try:
+        os.system("pm2 restart BenitoBot")
+    except:
+        await ctx.send("No se pudo reiniciar el bot")
         return
 
 
