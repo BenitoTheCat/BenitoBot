@@ -276,6 +276,7 @@ async def helpme(ctx):
         + "next - Siguiente cancion\n"
         + "cola - Mostrar cola de canciones\n"
         + "disconnect - Desconectar al bot del canal de voz\n"
+        + "restart - Reiniciar el bot\n"
         + "```"
     )
 
